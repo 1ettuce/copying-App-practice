@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#181a20" />
+  <title>LUMEX Exchange</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="device" id="device">
+    <div class="screen" id="screen">
+
+      <!-- ───── Status bar + Dynamic Island ───── -->
+      <div class="statusbar" id="statusbar">
+        <span class="sb-time" id="sbTime">10:16</span>
+        <span class="sb-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".35"/></svg>
+          <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0L8 11.5Zm-4.2-4.3L2.2 5.6a8.2 8.2 0 0 1 11.6 0l-1.6 1.6a5.9 5.9 0 0 0-8.4 0ZM.6 4 -1 2.4a12.7 12.7 0 0 1 18 0L15.4 4a10.4 10.4 0 0 0-14.8 0Z"/></svg>
+          <span class="sb-battery"><i></i></span>
+        </span>
+      </div>
+      <div class="island" id="island">
+        <div class="island-rec"></div>
+        <div class="faceid" id="faceid">
+          <svg viewBox="0 0 80 80" class="fid-spin" id="fidSpin">
+            <ellipse cx="40" cy="40" rx="24" ry="24" class="fid-e e1"/>
+            <ellipse cx="40" cy="40" rx="24" ry="24" class="fid-e e2"/>
+            <ellipse cx="40" cy="40" rx="24" ry="24" class="fid-e e3"/>
+          </svg>
+          <svg viewBox="0 0 80 80" class="fid-done" id="fidDone">
+            <circle cx="40" cy="40" r="24" class="fid-ring"/>
+            <path d="M30 41.5 37.5 49 51 33" class="fid-check"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- ───── iOS home screen (launcher) ───── -->
+      <section class="launcher" id="launcher">
+        <div class="launcher-grid" id="launcherGrid"></div>
+        <div class="launcher-hint">아이콘을 탭해서 앱 실행</div>
+        <div class="launcher-dock">
+          <span class="ic" style="--c1:#5ac8fa;--c2:#007aff"></span>
+          <span class="ic" style="--c1:#ffe14d;--c2:#f5c400"></span>
+          <span class="ic" style="--c1:#ff5a5a;--c2:#e5202a"></span>
+          <span class="ic" style="--c1:#9aa0a6;--c2:#5f6368"></span>
+        </div>
+      </section>
+
+      <!-- ───── Splash ───── -->
+      <section class="splash" id="splash" hidden>
+        <div class="splash-brand">
+          <svg class="logo-mark" viewBox="0 0 64 64"><use href="#lumexMark"/></svg>
+          <span class="wordmark">LUMEX</span>
+        </div>
+      </section>
+
+      <!-- ───── App ───── -->
+      <main class="app" id="app" hidden>
+
+        <!-- HOME -->
+        <section class="page active" data-page="home">
+          <header class="home-head">
+            <div class="avatar"><span></span></div>
+            <button class="icon-btn" aria-label="support">
+              <svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg>
+            </button>
+            <div class="seg" id="homeSeg">
+              <span class="seg-pill"></span>
+              <button class="on">Exchange</button><button>Wallet</button>
+            </div>
+            <button class="icon-btn" aria-label="rewards">
+              <svg viewBox="0 0 24 24"><path d="M7 17c-2-2-2-6 1-9l3-3 2 2-3 3c-1.5 1.5-1.6 3.4-.4 4.6"/><circle cx="16" cy="12" r="4"/><path d="m14.5 12 1 1 2-2"/></svg>
+            </button>
+            <button class="icon-btn badge" aria-label="messages" data-badge="99+">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>
+            </button>
+          </header>
+
+          <div class="scroller ptr" id="homeScroller">
+            <div class="ptr-indicator"><div class="rlogo"></div></div>
+            <div class="ptr-content">
+              <label class="search">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+                <span class="search-rot" id="searchRot"><span>🔥 SUI hot search</span></span>
+                <svg viewBox="0 0 24 24" class="scan"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4M7 12h10"/></svg>
+              </label>
+
+              <div class="est">Est. Total Value (USD) <svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></div>
+              <div class="balance-row">
+                <div class="balance" id="balance">$4,679.48</div>
+                <button class="btn-yellow">Add Funds</button>
+              </div>
+              <div class="pnl">Today's PNL <b class="up" id="pnl">+$0.49523335(+0.01%)</b> <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+
+              <div class="quick">
+                <div><i><svg viewBox="0 0 24 24"><path d="M9 4h6l-1.5 3a6 6 0 0 1 4.5 6v4a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-4a6 6 0 0 1 4.5-6z"/><path class="acc" d="m12 11 2 2-2 2-2-2z"/></svg></i>Earn</div>
+                <div><i><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-6 6M10 20H4v-6"/><path class="acc" d="m7 10 3 3-3 3-3-3z" transform="translate(2 -3)"/></svg></i>Convert</div>
+                <div><i><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/><path class="acc" d="m12 9.5 2.5 2.5-2.5 2.5-2.5-2.5z"/></svg></i>Convert<br/>Recurring</div>
+                <div><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle class="acc" cx="9" cy="15" r="2.2"/></svg></i>Add Funds</div>
+                <div><i><svg viewBox="0 0 24 24"><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/><rect x="4" y="4" width="7" height="7" rx="1.5"/><path class="acc" d="m16.5 3.5 3 3-3 3-3-3z"/></svg></i>More</div>
+              </div>
+
+              <div class="card promo">
+                <div class="promo-title">October Referral Tournament <span class="x">✕</span></div>
+                <div class="promo-track" id="promoTrack">
+                  <div class="promo-slide"><span class="gift">🎁</span><b>Invite &amp; Compete for Up to<br/>1,000 USDC</b><button class="btn-dark">Join</button></div>
+                  <div class="promo-slide"><span class="gift">🚀</span><b>Trade Futures &amp; Win:<br/>Complete Tasks</b><button class="btn-dark">Go</button></div>
+                  <div class="promo-slide"><span class="gift">💎</span><b>Earn up to 12% APR<br/>on Flexible Products</b><button class="btn-dark">Earn</button></div>
+                </div>
+                <div class="dots" id="promoDots"><i class="on"></i><i></i><i></i></div>
+              </div>
+
+              <div class="twin">
+                <div class="card mini">
+                  <div class="mini-h"><span class="coin" style="--cc:#f5c400">$</span>USD</div>
+                  <span class="tag-green">Deposit</span>
+                  <b class="mini-big">Apple Pay</b>
+                  <span class="pay-chip">Pay</span>
+                  <div class="dots sm"><i class="on"></i><i></i></div>
+                </div>
+                <div class="card mini">
+                  <div class="mini-h"><span class="coin" style="--cc:#fcd535">L</span>LMX</div>
+                  <b class="mini-price" id="lmxPrice">760.07</b>
+                  <span class="down" id="lmxChg">▼ 0.89%</span>
+                  <svg class="spark" viewBox="0 0 120 40" preserveAspectRatio="none" id="lmxSpark"></svg>
+                </div>
+              </div>
+
+              <div class="card mkts">
+                <div class="tabs-s" data-tabs>
+                  <button>Favorites</button><button class="on">Hot</button><button>TradFi</button><button>Alpha</button><button>New</button><button>Gainers</button>
+                  <span class="tabs-bar"></span>
+                </div>
+                <div class="chips" data-chips><button class="on">Crypto</button><button>Futures</button><button>Stocks</button></div>
+                <div class="list-h"><span>Name</span><span>Last Price</span><span>24h chg%</span></div>
+                <div class="coin-list" id="homeList"></div>
+                <div class="view-more">View more</div>
+              </div>
+
+              <!-- Discover sticky sheet -->
+                <div class="disc-bar">
+                  <div class="tabs-s big" data-tabs>
+                    <button class="on">Discover</button><button>Following</button><button>Stocks<sup>NEW</sup></button><button>Smart Money</button>
+                    <span class="tabs-bar"></span>
+                  </div>
+                  <svg viewBox="0 0 24 24" class="disc-up"><path d="m6 15 6-6 6 6"/></svg>
+                </div>
+                <div class="disc-feed">
+                  <div class="pill-row"><span class="pill purple">+2658 <em>Rewards</em> Crypto Friends, come in ▶</span><span class="pill purple">+522</span></div>
+                  <article class="post">
+                    <div class="post-av" style="--cc:#e2a23b">D</div>
+                    <div>
+                      <b>DuongNguyenswap</b> <span class="muted">· Oct 7</span>
+                      <div class="muted xs">Top traders by profit in 30D</div>
+                      <p><span class="hl">$SUI</span> are so strong. Hold it</p>
+                      <div class="post-trade"><b>SUIUSDT</b> <span class="tag-green">Opening Long</span><span class="up">+25,606.48 USDT</span></div>
+                      <div class="post-meta muted">💬 36 &nbsp; ↻ 3 &nbsp; 👍 50 &nbsp; 📊 112.1K</div>
+                    </div>
+                  </article>
+                  <article class="post">
+                    <div class="post-av" style="--cc:#4a7bd6">I</div>
+                    <div>
+                      <b>Ihtisham_Ul Haq</b> <span class="muted">· 19h</span>
+                      <p>🚨 $ETH longs are going vertical.<br/>They definitely know something.</p>
+                      <div class="post-img"></div>
+                    </div>
+                  </article>
+                  <article class="post">
+                    <div class="post-av" style="--cc:#2ebd85">M</div>
+                    <div>
+                      <b>MacroMind</b> <span class="muted">· 2d</span>
+                      <p>Macro pressure persists, market stays defensive. Watching <span class="hl">$BTC</span> 80k support.</p>
+                    </div>
+                  </article>
+                </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MARKETS -->
+        <section class="page" data-page="markets">
+          <header class="mk-head">
+            <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span class="muted">Search coins and trends</span></label>
+            <span class="more-dots">•••</span>
+          </header>
+          <div class="tabs-s big scroll-x" data-tabs>
+            <button class="on">For You</button><button>Favorites</button><button>Crypto</button><button>TradFi<i class="ydot"></i></button><button>Alpha</button><button>Prediction</button>
+            <span class="tabs-bar short"></span>
+          </div>
+          <div class="scroller ptr">
+            <div class="ptr-indicator"><div class="rlogo"></div></div>
+            <div class="ptr-content">
+              <div class="skeleton-wrap">
+                <div class="card sk-card"><div class="sk w60"></div><div class="sk w90"></div><div class="sk w40"></div></div>
+                <div class="card sk-card"><div class="sk w40"></div><div class="sk w90 h"></div><div class="sk w60"></div></div>
+                <div class="card sk-card"><div class="sk w60"></div><div class="sk w90"></div></div>
+              </div>
+              <div class="loaded">
+                <div class="card ask">
+                  <div class="ask-h">Which product would you most like to see? <span class="x">✕</span></div>
+                  <div class="chips outline"><button>Spot</button><button>Futures</button><button>Stocks</button><button>Simple Trading</button></div>
+                  <button class="btn-ghost">Create my own page</button>
+                </div>
+                <div class="card brief">
+                  <span class="brief-tag"><b>Market</b><i>Brief</i></span>
+                  <h3>Samsung Sees Quarterly Profit<br/>Top 100 Trillion Won</h3>
+                  <div class="mascot sm"><span></span></div>
+                  <span class="play">▶</span>
+                </div>
+                <div class="card indices">
+                  <div class="card-h">Indices <span>›</span></div>
+                  <div class="idx-row">
+                    <div><div class="muted">S&amp;P 500</div><b class="flat">FLAT</b></div>
+                    <svg class="spark green" viewBox="0 0 200 50" preserveAspectRatio="none" id="idxSpark"></svg>
+                  </div>
+                  <div class="ratio"><i style="width:28%"></i><em></em></div>
+                  <div class="ratio-l"><span class="up">Price Up: 140</span><span class="down">Price Down: 358</span></div>
+                  <div class="idx-scroll">
+                    <div><span class="muted">LMX</span><b data-tick="760.06">760.06</b><span class="down">-0.89% -6.84 ▼</span></div>
+                    <div><span class="muted">S&amp;P 500</span><b>7,801.77</b><span class="down">-0.22% -17.16 ▼</span></div>
+                    <div><span class="muted">NASDAQ</span><b>31,160.4</b><span class="down">-0.21% -66.2 ▼</span></div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-h">Trader Picks <span>›</span></div>
+                  <div class="tp"><div class="post-av" style="--cc:#c94">有</div><div><b>有点感觉_k</b><div class="muted xs">Top 58 live futures PnL in 90D</div></div></div>
+                  <div class="tp-row"><b>LMXUSDT</b><span class="tag">Perp</span><span class="tag">10X</span><span class="tag-green">Opening Long</span><button class="btn-yellow sm">Trade</button></div>
+                  <div class="muted xs">Unrealized PNL (USDT)</div>
+                  <div class="tp-pnl"><b class="up">+2,223.34</b> <span class="up">+10.98%</span><svg class="spark gold" viewBox="0 0 120 40" preserveAspectRatio="none" id="tpSpark"></svg></div>
+                </div>
+                <div class="twin">
+                  <div class="card ideas">
+                    <div class="card-h">Trade Ideas <span>›</span></div>
+                    <div class="idea">📊 K-line Patterns</div><div class="idea">📈 Easy Screener</div><div class="idea">〰️ Quant Strategies</div><div class="idea">☆ My Favorites</div>
+                  </div>
+                  <div class="card ideas">
+                    <div class="card-h">Futures ▾ <span>›</span></div>
+                    <div class="muted">Popular</div>
+                    <div class="fut"><span class="coin" style="--cc:#1f6bff">O</span><div><b>OGNUSDT</b><div class="up">+93.51%</div></div></div>
+                    <div class="fut"><span class="coin" style="--cc:#7a3cff">S</span><div><b>STRKUSDT</b><div class="up">+21.32%</div></div></div>
+                    <div class="fut"><span class="coin" style="--cc:#eaeaea;color:#111">A</span><div><b>ALGOUSDT</b><div class="up">+6.69%</div></div></div>
+                  </div>
+                </div>
+                <div class="twin">
+                  <div class="card ideas"><div class="card-h">PNL Recap <span>›</span></div><div class="muted">PnL Amount 👁</div><b class="up big">+$472.84</b><div class="up">+10.79%</div><p class="muted mt">Futures account performed the best</p></div>
+                  <div class="card ideas"><div class="card-h">Macro Insight <span>›</span></div><div class="macro">🔍</div><p>Macro pressure persists, market stays defensive</p><span class="tag">₿ BTC <span class="down">-1.09%</span></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TRADE (Convert) -->
+        <section class="page" data-page="trade">
+          <header class="big-tabs">
+            <div class="tabs-s huge scroll-x" data-tabs>
+              <button class="on">Convert</button><button>Spot</button><button>Stocks</button><button>Prediction</button><button>Alpha</button>
+              <span class="tabs-bar hide"></span>
+            </div>
+            <span class="hamb">☰</span>
+          </header>
+          <div class="scroller ptr">
+            <div class="ptr-indicator"><div class="rlogo"></div></div>
+            <div class="ptr-content pad">
+              <div class="notice">📢 <span>New bStocks Listing: USDEB,JPMB,SECZB,LLYB</span> ›</div>
+              <div class="conv-tabs">
+                <div class="seg flat" data-seg><span class="seg-pill"></span><button class="on">Instant</button><button>Recurring</button><button>Limit</button></div>
+              </div>
+              <div class="conv">
+                <div class="conv-l"><span class="muted">From</span><span class="muted xs">Available <b class="conv-avail">0</b> ⊕</span></div>
+                <div class="conv-r"><span class="coin-pick"><span class="coin ph"></span><b>--</b> ▾</span><span class="conv-amt">&gt; 0.0072</span></div>
+                <div class="conv-swap"><button id="swapBtn">⇅</button></div>
+                <div class="conv-l"><span class="muted">To</span></div>
+                <div class="conv-r"><span class="coin-pick"><span class="coin ph"></span><b>--</b> ▾</span><span class="conv-amt">&gt; 0.01</span></div>
+              </div>
+              <button class="btn-yellow block dim">Preview</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- FUTURES -->
+        <section class="page" data-page="futures">
+          <header class="big-tabs">
+            <div class="tabs-s huge scroll-x" data-tabs>
+              <button class="on">USDⓈ-M</button><button>COIN-M</button><button>Options</button><button>Up/Down</button>
+              <span class="tabs-bar hide"></span>
+            </div>
+            <span class="hamb">☰</span>
+          </header>
+          <div class="scroller ptr">
+            <div class="ptr-indicator"><div class="rlogo"></div></div>
+            <div class="ptr-content">
+              <div class="campaign">📢 Hot Campaign: Trade Futures &amp; Win: Complete Tasks to Sha… <span>✕</span></div>
+              <div class="pair"><b>ETHUSDT</b><span class="tag">Perp</span>▾ <span class="pair-icons">⫶⫶ •••</span></div>
+              <div class="down xs pair-chg" id="pairChg">-1.00%</div>
+              <div class="fut-grid">
+                <div class="fut-form">
+                  <div class="seg flat full" data-seg><span class="seg-pill"></span><button class="on">Open</button><button>Close</button></div>
+                  <div class="row3"><span class="box">Isolated</span><span class="box">12x</span><span class="box">S</span></div>
+                  <div class="box sel">Limit <span>ⓘ ▾</span></div>
+                  <div class="box inp"><small>Price (USDT)</small><b id="limitPrice">2535.32</b><em>BBO</em></div>
+                  <div class="box inp"><span class="muted">Initial Margin</span><b class="muted">USDT ▾</b></div>
+                  <div class="slider"><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="kv"><span class="muted">Avbl</span><span>1,946.65 USDT <i class="ydot2"></i></span></div>
+                  <label class="kv"><span><input type="checkbox" checked /> TP/SL</span><span class="muted">Advanced ▾</span></label>
+                  <div class="box inp"><span class="muted">Price</span><b>USDT ▾</b></div>
+                  <div class="box inp"><span class="muted">Price</span><b>USDT ▾</b></div>
+                  <div class="kv"><span class="muted">GTC ▾</span></div>
+                  <div class="kv sm"><span class="muted">Max Open<br/>Cost</span><span>23,340.16 USDT<br/>0 USDT</span></div>
+                  <button class="btn-green block">Open Long <small>Buy</small></button>
+                  <div class="kv sm"><span class="muted">Max Open<br/>Cost</span><span>23,279.31 USDT<br/>0 USDT</span></div>
+                  <button class="btn-red block">Open Short <small>Sell</small></button>
+                </div>
+                <div class="book">
+                  <div class="book-h"><span class="muted xs">Funding (8h) / Countdown</span><span class="xs">0.0002% / <b id="countdown">02:43:43</b></span></div>
+                  <div class="book-cols muted xs"><span>Price<br/>(USDT)</span><span>Amount<br/>(USDT)</span></div>
+                  <div class="asks" id="asks"></div>
+                  <div class="mid"><b class="down" id="midPrice">2,535.30</b><span class="muted xs" id="markPrice">2,535.57</span></div>
+                  <div class="bids" id="bids"></div>
+                  <div class="book-foot"><span class="dep"><i class="g"></i><i class="r"></i></span><span class="pct"><b class="up">6.88%</b><b class="down">93.12%</b></span><span class="box tiny">0.01 ▾</span></div>
+                </div>
+              </div>
+              <div class="tabs-s pos-tabs" data-tabs><button class="on">Positions (1)</button><button>Open Orders (2)</button><button>Bots</button><span class="tabs-bar"></span></div>
+              <div class="pos">
+                <div class="kv"><label><input type="checkbox" /> Hide Other Symbols</label><span class="box tiny">Close All</span></div>
+                <div class="pos-h"><span class="lchip">L</span><b>ETHUSDT</b><span class="tag">Perp</span><span class="tag">Isolated 12X</span></div>
+                <div class="pos-g">
+                  <div><small class="muted">PNL (USDT)</small><b class="down big" id="posPnl">-173.56</b></div>
+                  <div class="r"><small class="muted">ROI</small><b class="down big" id="posRoi">-11.87%</b></div>
+                  <div><small class="muted">Size (ETH)</small>6.847</div>
+                  <div><small class="muted">Margin (USDT)</small>1,456.67</div>
+                  <div class="r"><small class="muted">Margin Ratio</small><span class="up">5.41%</span></div>
+                  <div><small class="muted">Entry Price (USDT)</small>2,560.91</div>
+                  <div><small class="muted">Mark Price (USDT)</small><span id="posMark">2,535.57</span></div>
+                  <div class="r"><small class="muted">Liq.Price (USDT)</small>2,357.59</div>
+                </div>
+                <div class="row3 btns"><span class="box">Leverage</span><span class="box">TP/SL</span><span class="box">Close</span></div>
+              </div>
+              <div class="chart-foot">ETHUSDT Perpetual Chart <span>⌃</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ASSETS -->
+        <section class="page" data-page="assets">
+          <div class="tabs-s huge scroll-x as-tabs" id="assetTabs">
+            <button class="on">Overview</button><button>Futures</button><button>Spot</button><button>Funding</button><button>Prediction</button>
+            <span class="tabs-bar hide"></span>
+          </div>
+          <div class="as-pager" id="assetPager">
+            <!-- Overview -->
+            <div class="as-page scroller ptr">
+              <div class="ptr-indicator"><div class="rlogo"></div></div>
+              <div class="ptr-content pad">
+                <div class="as-top"><div><div class="muted">Est. Total Value 👁</div><div class="balance"><span data-count="4678.72">$4,678.72</span> <small>USD ▾</small></div><div class="pnl">Today's PNL <b class="up">+$0.49523335 (+0.01%)</b> ›</div></div><svg class="spark gold" viewBox="0 0 80 40" id="asSpark"></svg></div>
+                <div class="as-actions"><div><i>↓</i>Add Funds</div><div><i>↑</i>Send</div><div><i>⇄</i>Transfer</div><div><i>🔒</i>Earn</div></div>
+                <div class="card"><div class="card-h">Balance <span>☰</span></div>
+                  <div class="as-row"><span class="coin" style="--cc:#26a17b">T</span><div><b>USDT</b><div class="muted xs">TetherUS</div></div><div class="r"><b>4,678.72902898</b><div class="muted xs">$4,678.72</div></div></div>
+                  <div class="as-act"><span class="box tiny">Earn</span><span class="box tiny">Trade</span></div>
+                </div>
+              </div>
+            </div>
+            <!-- Futures -->
+            <div class="as-page scroller ptr">
+              <div class="ptr-indicator"><div class="rlogo"></div></div>
+              <div class="ptr-content pad">
+                <div class="chips"><button class="on">USDⓈ-M</button><button>COIN-M</button><button>Options</button></div>
+                <div class="muted mt">Margin Balance 👁</div><div class="balance">$4,675.47 <small>USD ▾</small></div>
+                <div class="pnl">Today's Realized PNL <b class="up">+$0.49 (+0.01%)</b> ›</div>
+                <div class="as-actions"><div><i>▤</i>Trade</div><div><i>⇆</i>Swap</div><div><i>⇄</i>Transfer</div><div><i>•••</i>More</div></div>
+                <div class="card"><div class="card-h">Account Info <span>⌃</span></div>
+                  <div class="pos-g"><div><small class="muted">Wallet Balance (USD)</small>$4,850.93</div><div class="r"><small class="muted">Unrealized PNL (USD)</small><span class="down">-$175.461848</span></div></div>
+                </div>
+                <div class="card"><div class="tabs-s" data-tabs><button class="on">Assets</button><button>Positions</button><span class="tabs-bar"></span></div>
+                  <div class="as-row"><span class="coin" style="--cc:#26a17b">T</span><b>USDT</b></div>
+                  <div class="pos-g"><div><small class="muted">Wallet Balance</small>4,854.39585892</div><div class="r"><small class="muted">Unrealized PnL</small>-175.58700144</div><div><small class="muted">Margin Balance</small>4,678.80885753</div><div class="r"><small class="muted">Available for Transfer</small>1,947.81891705</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Spot -->
+            <div class="as-page scroller ptr">
+              <div class="ptr-indicator"><div class="rlogo"></div></div>
+              <div class="ptr-content pad">
+                <div class="chips"><button class="on">Spot</button><button>Cross Margin</button><button>Isolated Margin</button></div>
+                <div class="muted mt">Est. Total Value 👁</div><div class="balance">$0.00</div>
+                <div class="as-actions three"><div><i>↓</i>Add Funds</div><div><i>↑</i>Send</div><div><i>⇄</i>Transfer</div></div>
+                <div class="card empty"><div class="card-h">Balance <span>☰</span></div><div class="empty-ic">🗂</div><div class="muted xs">No assets available</div></div>
+              </div>
+            </div>
+            <!-- Funding -->
+            <div class="as-page scroller ptr">
+              <div class="ptr-indicator"><div class="rlogo"></div></div>
+              <div class="ptr-content pad">
+                <div class="muted">Est. Total Value 👁</div><div class="balance">$0.00 <small>USD ▾</small></div>
+                <div class="pnl">Today's PNL <b class="muted">+$0.00 (+0.00%)</b></div>
+                <div class="as-actions"><div><i>↓</i>Add Funds</div><div><i>↑</i>Send</div><div><i>⇄</i>Transfer</div><div><i>⇆</i>Stock Transfer</div></div>
+                <div class="notice">⊙ Manual Transfer to Spot Account ›</div>
+                <div class="card"><div class="card-h">Balance <span>☰</span></div>
+                  <div class="as-row"><span class="coin" style="--cc:#26a17b">T</span><div><b>USDT</b><div class="muted xs">TetherUS</div></div><div class="r">0.00<div class="muted xs">0.00</div></div></div>
+                  <div class="as-row"><span class="coin" style="--cc:#f7931a">B</span><div><b>BTC</b><div class="muted xs">Bitcoin</div></div><div class="r">0.00<div class="muted xs">0.00</div></div></div>
+                  <div class="as-row"><span class="coin" style="--cc:#fcd535;color:#111">L</span><div><b>LMX</b><div class="muted xs">Lumex Coin</div></div><div class="r">0.00<div class="muted xs">0.00</div></div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Prediction -->
+            <div class="as-page scroller ptr">
+              <div class="ptr-indicator"><div class="rlogo"></div></div>
+              <div class="ptr-content pad"><div class="muted">Est. Total Value 👁</div><div class="balance">$0.00</div><div class="card empty"><div class="empty-ic">🔮</div><div class="muted xs">No predictions yet</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- floating mascot -->
+        <div class="mascot" id="mascot"><span></span></div>
+
+        <!-- TAB BAR -->
+        <nav class="tabbar" id="tabbar">
+          <button class="on" data-go="home">
+            <svg viewBox="0 0 28 28"><path class="draw" d="M8.5 7a9.5 9.5 0 0 1 11 0"/><path class="draw" d="M21 8.5a9.5 9.5 0 0 1 0 11"/><path class="draw" d="M19.5 21a9.5 9.5 0 0 1-11 0"/><path class="draw" d="M7 19.5a9.5 9.5 0 0 1 0-11"/><path class="fillacc" d="m14 10 4 4-4 4-4-4z"/></svg><span>Home</span>
+          </button>
+          <button data-go="markets">
+            <svg viewBox="0 0 28 28"><path class="draw" d="M4 18l6-6 4 4 9-9"/><path class="draw acc" d="M18 7h5v5"/><path class="draw" d="M4 23h20"/></svg><span>Markets</span>
+          </button>
+          <button data-go="trade">
+            <svg viewBox="0 0 28 28" class="spin-ic"><path class="draw" d="M5 14a9 9 0 0 1 15.5-6.2M23 14a9 9 0 0 1-15.5 6.2"/><path class="draw" d="M21 4v4.5h-4.5M7 24v-4.5h4.5"/><path class="fillacc" d="m14 11 3 3-3 3-3-3z"/></svg><span>Trade</span>
+          </button>
+          <button data-go="futures">
+            <svg viewBox="0 0 28 28"><path class="draw" d="M7 4h14v20H7z"/><path class="draw" d="M11 9h6M11 13h4"/><path class="fillacc" d="m17 16 2.5 2.5L17 21l-2.5-2.5z"/></svg><span>Futures</span>
+          </button>
+          <button data-go="assets">
+            <svg viewBox="0 0 28 28"><path class="draw" d="M5 9h18v14H5z"/><path class="draw" d="M8 9V5h12v4"/><path class="fillacc" d="m18 13.5 2.5 2.5-2.5 2.5-2.5-2.5z"/></svg><span>Assets</span>
+          </button>
+        </nav>
+        <div class="home-ind"></div>
+      </main>
+
+      <!-- Launch zoom overlay -->
+      <div class="zoom" id="zoom"></div>
+    </div>
+    <div class="controls">
+      <button id="replay">↺ 다시 실행</button>
+    </div>
+  </div>
+
+  <!-- shared SVG symbols -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- Original brand mark: center rhombus + 4 orbiting arcs -->
+      <symbol id="lumexMark" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
+          <path d="M21.86 10.25A24 24 0 0 1 42.14 10.25"/>
+          <path d="M53.75 21.86A24 24 0 0 1 53.75 42.14"/>
+          <path d="M42.14 53.75A24 24 0 0 1 21.86 53.75"/>
+          <path d="M10.25 42.14A24 24 0 0 1 10.25 21.86"/>
+        </g>
+        <path fill="currentColor" d="M32 21l11 11-11 11-11-11z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <script src="app.js"></script>
+</body>
+</html>
